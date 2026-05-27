@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rica Café — Kuala Lumpur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #C9A96E;
+      --gold-light: #E8D5A3;
+      --dark: #0E0B08;
+      --dark2: #1A1410;
+      --dark3: #2A2218;
+      --cream: #F5EDD8;
+      --cream2: #EDE0C4;
+      --text-muted: #8C7B5E;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--dark); color: var(--cream); font-family: 'Jost', sans-serif; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.2rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(to bottom, rgba(14,11,8,0.95), transparent);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; letter-spacing: 0.15em; color: var(--gold);
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cream2); text-decoration: none; opacity: 0.8;
+      transition: opacity 0.3s, color 0.3s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      height: 100vh; min-height: 600px;
+      position: relative; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(201,169,110,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 30%, rgba(201,169,110,0.08) 0%, transparent 50%),
+        url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1600&q=80') center/cover no-repeat;
+      filter: brightness(0.35);
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(14,11,8,0.4) 0%, rgba(14,11,8,0.1) 50%, rgba(14,11,8,0.8) 100%);
+    }
+    .hero-content {
+      position: relative; text-align: center; padding: 2rem;
+      animation: fadeUp 1.2s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-subtitle {
+      font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1; color: var(--cream); margin-bottom: 0.5rem;
+    }
+    .hero-title span { font-style: italic; color: var(--gold); }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-style: italic;
+      color: var(--cream2); opacity: 0.8; margin-top: 1rem; letter-spacing: 0.05em;
+    }
+    .hero-divider {
+      display: flex; align-items: center; gap: 1rem;
+      justify-content: center; margin: 1.5rem 0;
+    }
+    .hero-divider span { width: 60px; height: 1px; background: var(--gold); opacity: 0.5; }
+    .hero-cta {
+      margin-top: 2rem;
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 0.9rem 2.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      text-decoration: none; cursor: pointer; background: transparent;
+      transition: background 0.3s, color 0.3s;
+    }
+    .hero-cta:hover { background: var(--gold); color: var(--dark); }
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.6; animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    section { padding: 5rem 3rem; }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-label {
+      font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.8rem; display: block;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--cream);
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .ornament {
+      display: flex; align-items: center; gap: 1rem; justify-content: center; margin-top: 1rem;
+    }
+    .ornament span { width: 40px; height: 0.5px; background: var(--gold); opacity: 0.4; }
+    .ornament-diamond { width: 5px; height: 5px; border: 1px solid var(--gold); transform: rotate(45deg); }
+
+    .about { background: var(--dark2); }
+    .about-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .about-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; line-height: 1.9; color: var(--cream2); opacity: 0.85;
+    }
+
+    .gallery { background: var(--dark3); padding: 3rem 0; }
+    .gallery-strip { display: flex; gap: 3px; overflow: hidden; height: 220px; }
+    .gallery-img {
+      flex: 1; min-width: 0;
+      background-size: cover; background-position: center;
+      filter: brightness(0.6) sepia(0.3);
+      transition: flex 0.6s ease, filter 0.4s;
+    }
+    .gallery-img:hover { flex: 2; filter: brightness(0.75) sepia(0.1); }
+    .g1 { background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=70'); }
+    .g2 { background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=70'); }
+    .g3 { background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=70'); }
+    .g4 { background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=70'); }
+    .g5 { background-image: url('https://images.unsplash.com/photo-1559496417-e7f25cb247f3?w=600&q=70'); }
+
+    .menu-section { background: var(--dark); }
+    .menu-section.alt { background: var(--dark2); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      border: 1px solid rgba(201,169,110,0.1);
+      max-width: 1000px; margin: 0 auto;
+    }
+    .menu-item {
+      padding: 1.4rem 1.8rem;
+      border-bottom: 1px solid rgba(201,169,110,0.08);
+      border-right: 1px solid rgba(201,169,110,0.08);
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+      transition: background 0.3s;
+    }
+    .menu-item:hover { background: rgba(201,169,110,0.04); }
+    .menu-item-left { flex: 1; }
+    .menu-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem; color: var(--cream); margin-bottom: 0.2rem;
+    }
+    .menu-name-cn { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
+    .menu-price {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem; color: var(--gold);
+      font-weight: 300; white-space: nowrap; letter-spacing: 0.05em;
+    }
+
+    /* ── BOOKING SECTION ── */
+    #booking { background: var(--dark3); }
+    .booking-wrapper {
+      max-width: 680px; margin: 0 auto;
+      border: 1px solid rgba(201,169,110,0.2);
+      padding: 3rem 3.5rem;
+      position: relative;
+    }
+    .booking-wrapper::before, .booking-wrapper::after {
+      content: '';
+      position: absolute;
+      width: 24px; height: 24px;
+      border-color: var(--gold); border-style: solid; opacity: 0.5;
+    }
+    .booking-wrapper::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .booking-wrapper::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+    .form-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); opacity: 0.8;
+    }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(201,169,110,0.05);
+      border: 1px solid rgba(201,169,110,0.2);
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+      appearance: none; -webkit-appearance: none;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold);
+      background: rgba(201,169,110,0.08);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+    .form-select { cursor: pointer; }
+    .form-select option { background: #1a1410; color: var(--cream); }
+    .form-textarea { resize: vertical; min-height: 90px; }
+
+    /* custom select arrow */
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: '▾';
+      position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+      color: var(--gold); pointer-events: none; font-size: 0.8rem;
+    }
+
+    .form-submit {
+      width: 100%; margin-top: 1.5rem;
+      background: transparent; border: 1px solid var(--gold);
+      color: var(--gold); padding: 1rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.3s, color 0.3s;
+    }
+    .form-submit:hover { background: var(--gold); color: var(--dark); }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* success state */
+    .booking-success {
+      display: none; text-align: center; padding: 2rem 0;
+    }
+    .success-icon {
+      width: 52px; height: 52px; border: 1px solid var(--gold);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem; color: var(--gold); font-size: 1.4rem;
+    }
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--cream); margin-bottom: 0.6rem;
+    }
+    .success-msg {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .success-detail {
+      margin-top: 1.5rem; font-size: 0.75rem; color: var(--gold-light);
+      letter-spacing: 0.1em; line-height: 2;
+    }
+    .success-back {
+      margin-top: 2rem; display: inline-block;
+      border: 1px solid rgba(201,169,110,0.4); color: var(--text-muted);
+      padding: 0.7rem 2rem; font-size: 0.65rem; letter-spacing: 0.25em;
+      text-transform: uppercase; cursor: pointer; background: transparent;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .success-back:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* CONTACT */
+    .contact { background: var(--dark2); text-align: center; }
+    .contact-card {
+      max-width: 480px; margin: 0 auto;
+      border: 1px solid rgba(201,169,110,0.2);
+      padding: 3rem 2.5rem; position: relative;
+    }
+    .contact-card::before, .contact-card::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--gold); border-style: solid; opacity: 0.6;
+    }
+    .contact-card::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+    .contact-card::after  { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+    .contact-label {
+      font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem; display: block;
+    }
+    .contact-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; color: var(--cream); margin-bottom: 0.5rem;
+    }
+    .contact-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem;
+    }
+    .wa-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: transparent; border: 1px solid var(--gold);
+      color: var(--gold); padding: 0.9rem 2.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.3s, color 0.3s;
+    }
+    .wa-btn:hover { background: var(--gold); color: var(--dark); }
+    .contact-info { margin-top: 1.8rem; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; }
+    .contact-info a { color: var(--gold-light); text-decoration: none; }
+
+    footer {
+      background: var(--dark); border-top: 1px solid rgba(201,169,110,0.1);
+      text-align: center; padding: 2rem;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; color: var(--gold); letter-spacing: 0.2em; margin-bottom: 0.5rem;
+    }
+    .footer-copy { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 0.1em; opacity: 0.6; }
+
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .gallery-strip { height: 160px; }
+      .booking-wrapper { padding: 2rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">RICA CAFÉ</div>
+  <div class="nav-links">
+    <a href="#menu">菜单</a>
+    <a href="#booking">预订</a>
+    <a href="#contact">联系我们</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-subtitle">Kuala Lumpur · Est. 2024</p>
+    <h1 class="hero-title">Rica <span>Café</span></h1>
+    <div class="hero-divider">
+      <span></span>
+      <div style="width:4px;height:4px;background:var(--gold);border-radius:50%;"></div>
+      <span></span>
+    </div>
+    <p class="hero-tagline">Where flavours tell a story</p>
+    <a class="hero-cta" href="#booking">Reserve a Table</a>
+  </div>
+  <div class="scroll-hint">↓ &nbsp; Explore</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-inner">
+    <div class="section-header">
+      <span class="section-label">Our Philosophy</span>
+      <h2 class="section-title">A <em>Taste</em> of Home</h2>
+      <div class="ornament"><span></span><div class="ornament-diamond"></div><span></span></div>
+    </div>
+    <p class="about-text">在 Rica Café，我们将马来西亚的灵魂风味与精致的西式早午餐融为一体，每一道菜都承载着对食材的尊重与对细节的热忱。</p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <div class="gallery-strip">
+    <div class="gallery-img g1"></div>
+    <div class="gallery-img g2"></div>
+    <div class="gallery-img g3"></div>
+    <div class="gallery-img g4"></div>
+    <div class="gallery-img g5"></div>
+  </div>
+</div>
+
+<!-- MENU: LOCAL -->
+<section id="menu" class="menu-section">
+  <div class="section-header">
+    <span class="section-label">Malaysian Classics</span>
+    <h2 class="section-title">本地 <em>风味</em></h2>
+    <div class="ornament"><span></span><div class="ornament-diamond"></div><span></span></div>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Nasi Lemak</div><div class="menu-name-cn">椰浆饭</div></div><div class="menu-price">RM 16.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Nasi Goreng</div><div class="menu-name-cn">马来炒饭</div></div><div class="menu-price">RM 15.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Char Kway Teow</div><div class="menu-name-cn">炒粿条</div></div><div class="menu-price">RM 17.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Mee Goreng</div><div class="menu-name-cn">马来炒面</div></div><div class="menu-price">RM 16.50</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Assam Laksa</div><div class="menu-name-cn">亚参叻沙</div></div><div class="menu-price">RM 18.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Curry Laksa</div><div class="menu-name-cn">咖喱叻沙</div></div><div class="menu-price">RM 19.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Nasi Briyani Ayam</div><div class="menu-name-cn">鸡肉布里亚尼饭</div></div><div class="menu-price">RM 24.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Roti Canai</div><div class="menu-name-cn">印度煎饼配咖喱</div></div><div class="menu-price">RM 12.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Satay</div><div class="menu-name-cn">沙爹鸡肉串（10串）</div></div><div class="menu-price">RM 14.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Kolo Mee</div><div class="menu-name-cn">哥罗面</div></div><div class="menu-price">RM 15.50</div></div>
+  </div>
+</section>
+
+<!-- MENU: WESTERN -->
+<section class="menu-section alt">
+  <div class="section-header">
+    <span class="section-label">Western Brunch</span>
+    <h2 class="section-title">西式 <em>早午餐</em></h2>
+    <div class="ornament"><span></span><div class="ornament-diamond"></div><span></span></div>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Big Breakfast</div><div class="menu-name-cn">全套英式早午餐</div></div><div class="menu-price">RM 36.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Chicken & Waffle</div><div class="menu-name-cn">炸鸡华夫饼</div></div><div class="menu-price">RM 29.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">French Toast</div><div class="menu-name-cn">法式吐司</div></div><div class="menu-price">RM 18.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Spaghetti Carbonara</div><div class="menu-name-cn">奶油意面</div></div><div class="menu-price">RM 25.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Grilled Salmon</div><div class="menu-name-cn">香煎三文鱼</div></div><div class="menu-price">RM 38.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Beef Burger</div><div class="menu-name-cn">牛肉汉堡</div></div><div class="menu-price">RM 27.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Tuna Salad</div><div class="menu-name-cn">吞拿鱼沙拉</div></div><div class="menu-price">RM 22.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Shakshuka</div><div class="menu-name-cn">北非番茄烤蛋</div></div><div class="menu-price">RM 24.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Mentaiko Sando</div><div class="menu-name-cn">明太子玉子三明治</div></div><div class="menu-price">RM 21.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Chicken Chop</div><div class="menu-name-cn">香煎鸡扒配薯角</div></div><div class="menu-price">RM 28.90</div></div>
+  </div>
+</section>
+
+<!-- MENU: DESSERTS -->
+<section class="menu-section">
+  <div class="section-header">
+    <span class="section-label">Desserts & Drinks</span>
+    <h2 class="section-title">甜品 <em>&</em> 特色饮品</h2>
+    <div class="ornament"><span></span><div class="ornament-diamond"></div><span></span></div>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Kaya Toast</div><div class="menu-name-cn">咖椰吐司 + 半生熟蛋</div></div><div class="menu-price">RM 11.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Cendol Gula Melaka</div><div class="menu-name-cn">马六甲椰糖煎蕊</div></div><div class="menu-price">RM 13.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">ABC Ice Kacang</div><div class="menu-name-cn">七彩红豆冰</div></div><div class="menu-price">RM 14.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Souffle Pancake</div><div class="menu-name-cn">舒芙蕾厚松饼</div></div><div class="menu-price">RM 22.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Tiramisu</div><div class="menu-name-cn">提拉米苏</div></div><div class="menu-price">RM 18.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Teh Tarik</div><div class="menu-name-cn">拉茶</div></div><div class="menu-price">RM 8.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">White Coffee</div><div class="menu-name-cn">白咖啡</div></div><div class="menu-price">RM 9.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Iced Kopi Peng</div><div class="menu-name-cn">冰咖啡</div></div><div class="menu-price">RM 10.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Latte</div><div class="menu-name-cn">拿铁</div></div><div class="menu-price">RM 14.90</div></div>
+    <div class="menu-item"><div class="menu-item-left"><div class="menu-name">Hojicha Cheesecake</div><div class="menu-name-cn">焙茶芝士蛋糕</div></div><div class="menu-price">RM 19.90</div></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="section-header">
+    <span class="section-label">Table Reservation</span>
+    <h2 class="section-title">预订 <em>座位</em></h2>
+    <div class="ornament"><span></span><div class="ornament-diamond"></div><span></span></div>
+  </div>
+
+  <div class="booking-wrapper">
+
+    <!-- FORM -->
+    <div id="bookingForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">姓名 · Name</label>
+          <input class="form-input" type="text" id="bName" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">联系电话 · Phone</label>
+          <input class="form-input" type="tel" id="bPhone" placeholder="+60 __ ____ ____" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">日期 · Date</label>
+          <input class="form-input" type="date" id="bDate" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">时间 · Time</label>
+          <div class="select-wrap">
+            <select class="form-select" id="bTime">
+              <option value="">Select time</option>
+              <option>08:00 AM</option>
+              <option>08:30 AM</option>
+              <option>09:00 AM</option>
+              <option>09:30 AM</option>
+              <option>10:00 AM</option>
+              <option>10:30 AM</option>
+              <option>11:00 AM</option>
+              <option>11:30 AM</option>
+              <option>12:00 PM</option>
+              <option>12:30 PM</option>
+              <option>01:00 PM</option>
+              <option>01:30 PM</option>
+              <option>02:00 PM</option>
+              <option>02:30 PM</option>
+              <option>03:00 PM</option>
+              <option>03:30 PM</option>
+              <option>04:00 PM</option>
+              <option>04:30 PM</option>
+              <option>05:00 PM</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">人数 · Guests</label>
+          <div class="select-wrap">
+            <select class="form-select" id="bGuests">
+              <option value="">Select guests</option>
+              <option>1 person</option>
+              <option>2 persons</option>
+              <option>3 persons</option>
+              <option>4 persons</option>
+              <option>5 persons</option>
+              <option>6 persons</option>
+              <option>7 persons</option>
+              <option>8 persons</option>
+              <option>9 persons</option>
+              <option>10+ persons</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">场合 · Occasion</label>
+          <div class="select-wrap">
+            <select class="form-select" id="bOccasion">
+              <option value="">Select occasion</option>
+              <option>Casual Dining</option>
+              <option>Birthday</option>
+              <option>Anniversary</option>
+              <option>Business Lunch</option>
+              <option>Family Gathering</option>
+              <option>Date Night</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group full">
+          <label class="form-label">特别要求 · Special Requests</label>
+          <textarea class="form-textarea" id="bNotes" placeholder="Allergies, dietary requirements, special arrangements…"></textarea>
+        </div>
+      </div>
+
+      <button class="form-submit" id="submitBtn" onclick="submitBooking()">
+        Confirm Reservation · 确认预订
+      </button>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="booking-success" id="bookingSuccess">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Reservation <em style="font-style:italic;color:var(--gold)">Confirmed</em></div>
+      <div class="success-msg">感谢您的预订！我们期待在 Rica Café 为您提供服务。<br>Thank you — we look forward to welcoming you.</div>
+      <div class="success-detail" id="successDetail"></div>
+      <button class="success-back" onclick="resetBooking()">Make Another Reservation</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="section-header">
+    <span class="section-label">Reservations & Enquiries</span>
+    <h2 class="section-title">联系 <em>我们</em></h2>
+    <div class="ornament"><span></span><div class="ornament-diamond"></div><span></span></div>
+  </div>
+  <div class="contact-card">
+    <span class="contact-label">Get in Touch</span>
+    <div class="contact-name">Rica Café</div>
+    <div class="contact-tagline">We'd love to hear from you</div>
+    <a class="wa-btn" href="https://wa.me/601161633406" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.122 1.532 5.856L.046 23.5l5.79-1.517A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.852 0-3.585-.5-5.076-1.373l-.363-.214-3.437.9.921-3.347-.238-.384A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+      </svg>
+      WhatsApp 联系我们
+    </a>
+    <div class="contact-info">
+      <a href="https://wa.me/601161633406">+60 11-6163 3406</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">RICA CAFÉ</div>
+  <div class="footer-copy">© 2024 Rica Café · Kuala Lumpur · All Rights Reserved</div>
+</footer>
+
+<script>
+  // Set min date to today
+  const dateInput = document.getElementById('bDate');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.setAttribute('min', today);
+
+  function submitBooking() {
+    const name     = document.getElementById('bName').value.trim();
+    const phone    = document.getElementById('bPhone').value.trim();
+    const date     = document.getElementById('bDate').value;
+    const time     = document.getElementById('bTime').value;
+    const guests   = document.getElementById('bGuests').value;
+    const occasion = document.getElementById('bOccasion').value;
+
+    if (!name || !phone || !date || !time || !guests) {
+      // Shake effect on empty required fields
+      ['bName','bPhone','bDate','bTime','bGuests'].forEach(id => {
+        const el = document.getElementById(id);
+        const v = el.tagName === 'SELECT' ? el.value : el.value.trim();
+        if (!v) {
+          el.style.borderColor = '#c0392b';
+          el.style.animation = 'shake 0.3s ease';
+          setTimeout(() => {
+            el.style.borderColor = '';
+            el.style.animation = '';
+          }, 600);
+        }
+      });
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Processing…';
+
+    setTimeout(() => {
+      // Format date
+      const d = new Date(date);
+      const dateStr = d.toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+      document.getElementById('successDetail').innerHTML =
+        `<span>${name}</span><br>` +
+        `${dateStr}<br>` +
+        `${time} · ${guests}` +
+        (occasion ? ` · ${occasion}` : '') +
+        `<br>${phone}`;
+
+      document.getElementById('bookingForm').style.display = 'none';
+      const suc = document.getElementById('bookingSuccess');
+      suc.style.display = 'block';
+      suc.style.animation = 'fadeUp 0.6s ease forwards';
+    }, 800);
+  }
+
+  function resetBooking() {
+    document.getElementById('bName').value = '';
+    document.getElementById('bPhone').value = '';
+    document.getElementById('bDate').value = '';
+    document.getElementById('bTime').value = '';
+    document.getElementById('bGuests').value = '';
+    document.getElementById('bOccasion').value = '';
+    document.getElementById('bNotes').value = '';
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = false;
+    btn.textContent = 'Confirm Reservation · 确认预订';
+    document.getElementById('bookingForm').style.display = 'block';
+    document.getElementById('bookingSuccess').style.display = 'none';
+  }
+</script>
+
+<style>
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+</style>
+
+</body>
+</html>
